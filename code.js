@@ -1,16 +1,16 @@
-function check_discount(user_Role, voucher_code, order_total) {
-  const hasVoucher = voucherCode === true;
-  return userRole === "ADMIN"
-    ? "Admin: Giảm giá đặc biệt 50%"
-    : userRole === "VIP"
-      ? hasVoucher
-        ? orderTotal >= 500
-          ? "VIP: Giảm giá 30%"
-          : "VIP: Đơn hàng chưa đủ 500k để giảm giá"
-        : "VIP: Cần có mã Voucher hợp lệ"
-      : orderTotal >= 1000
-        ? "Member: Đơn hàng lớn, giảm giá 10%"
-        : "Khách hàng thường: Không có giảm giá";
+function check_discount(user_role, voucher_code, order_total) {
+  const hasVoucher =
+    typeof voucher_code === "string" && voucher_code.trim() !== "";
+  if (user_role === "ADMIN") return "Admin: Giảm giá đặc biệt 50%";
+  if (user_role === "VIP") {
+    if (!hasVoucher) return "VIP: Cần có mã Voucher hợp lệ";
+    return order_total >= 500
+      ? "VIP: Giảm giá 30%"
+      : "VIP: Đơn hàng chưa đủ 500k để giảm giá";
+  }
+  return order_total >= 1000
+    ? "Member: Đơn hàng lớn, giảm giá 10%"
+    : "Khách hàng thường: Không có giảm giá";
 }
 function result() {
   let out = "";
